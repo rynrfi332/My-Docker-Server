@@ -1,0 +1,6 @@
+# Abaikan semua folder data yang dibuat oleh layanan Docker
+baserow/data
+n8n/data
+minio/data
+caddy/data
+caddy/config
