@@ -1,0 +1,34 @@
+
+# Caddyfile
+{
+    email youremail@example.com
+}
+
+# NCA-Toolkit
+nca.{$DOMAIN_NAME} {
+    reverse_proxy nca-toolkit:8501
+}
+
+# Kokoro-TTS
+kokoro-tts.{$DOMAIN_NAME} {
+    reverse_proxy kokoro-tts:8000
+}
+
+# n8n
+n8n.{$DOMAIN_NAME} {
+    reverse_proxy n8n:5678
+}
+
+# Baserow
+baserow.{$DOMAIN_NAME} {
+    reverse_proxy baserow:80
+}
+
+# Minio
+minio.{$DOMAIN_NAME} {
+    reverse_proxy minio:9000
+}
+# Minio Console
+minio-console.{$DOMAIN_NAME} {
+    reverse_proxy minio:9001
+}

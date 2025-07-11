@@ -1,0 +1,54 @@
+
+services:
+  caddy:
+    image: caddy:2.6.2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy/data:/data
+      - ./caddy/config:/config
+
+  n8n:
+    image: n8nio/n8n
+    restart: always
+    environment:
+      - N8N_HOST=${SUBDOMAIN_N8N}.${DOMAIN_NAME}
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=https
+      - NODE_ENV=production
+      - WEBHOOK_URL=https://${SUBDOMAIN_N8N}.${DOMAIN_NAME}/
+      - GENERIC_TIMEZONE=Asia/Jakarta
+    volumes:
+      - ./n8n/data:/home/node/.n8n
+
+  baserow:
+    image: baserow/baserow:1.13.2
+    restart: unless-stopped
+    environment:
+      - BASEROW_PUBLIC_URL=https://${SUBDOMAIN_BASEROW}.${DOMAIN_NAME}
+    volumes:
+      - ./baserow/data:/baserow/data
+
+  minio:
+    image: minio/minio:latest
+    restart: unless-stopped
+    volumes:
+      - ./minio/data:/data
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+      - MINIO_DEFAULT_BUCKETS=${MINIO_DEFAULT_BUCKETS}
+    command: server /data --console-address ":9001"
+
+  kokoro-tts:
+    image: aniskhoirun/kokoro-tts-server:latest
+    restart: unless-stopped
+
+  nca-toolkit:
+    image: aniskhoirun/nca-toolkit:latest
+    restart: unless-stopped
+    ports:
+      - "8501:8501"
