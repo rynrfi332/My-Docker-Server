@@ -3,22 +3,18 @@
     email praktekgcolab@gmail.com
 }
 
-# n8n
 n8n.jedasejenak.live {
     reverse_proxy n8n:5678
 }
 
-# Baserow
 baserow.jedasejenak.live {
     reverse_proxy baserow:80
 }
 
-# Minio
 minio.jedasejenak.live {
     reverse_proxy minio:9000
 }
 
-# Minio Console
 minio-console.jedasejenak.live {
     reverse_proxy minio:9001
 }
