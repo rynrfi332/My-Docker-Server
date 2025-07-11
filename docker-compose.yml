@@ -1,7 +1,8 @@
-
 services:
   caddy:
     image: caddy:2.6.2
+    env_file:
+      - .env
     restart: unless-stopped
     ports:
       - "80:80"
@@ -43,12 +44,13 @@ services:
       - MINIO_DEFAULT_BUCKETS=${MINIO_DEFAULT_BUCKETS}
     command: server /data --console-address ":9001"
 
- # kokoro-tts:
- #   image: aniskhoirun/kokoro-tts-server:latest
- #   restart: unless-stopped
+  # Layanan yang bermasalah dinonaktifkan untuk sementara
+  # kokoro-tts:
+  #   image: aniskhoirun/kokoro-tts-server:latest
+  #   restart: unless-stopped
 
- # nca-toolkit:
- #   image: aniskhoirun/nca-toolkit:latest
- #   restart: unless-stopped
- #   ports:
- #     - "8501:8501"
+  # nca-toolkit:
+  #   image: aniskhoirun/nca-toolkit:latest
+  #   restart: unless-stopped
+  #   ports:
+  #     - "8501:8501"
