@@ -15,6 +15,7 @@ services:
   n8n:
     image: n8nio/n8n
     restart: always
+    user: "root"
     environment:
       - N8N_HOST=${SUBDOMAIN_N8N}.${DOMAIN_NAME}
       - N8N_PORT=5678
